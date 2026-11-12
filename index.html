@@ -3,418 +3,440 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Petualangan Aksi 3D: Kisah Nabi Nuh a.s. (PAI Kelas 2 SD)</title>
+  <title>BAHTERA NUH A.S. - Ekspedisi Samudra Hikmah (PAI Kelas 2 SD)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
   <style>
     * {
       user-select: none;
       -webkit-user-select: none;
-      touch-action: manipulation;
+      touch-action: none;
       font-family: 'Fredoka', sans-serif;
     }
     h1, h2, h3, .font-title {
       font-family: 'Baloo 2', cursive;
     }
-    body {
-      background-image: url('assets/bg-diorama-nuh.png');
-      background-size: cover;
-      background-position: center bottom;
-      background-attachment: fixed;
+    /* Latar Belakang Lobby Bergaya Dark Ocean Glassmorphism */
+    .lobby-bg {
+      background: radial-gradient(circle at 20% 20%, #0f3d5e 0%, #07192b 55%, #030b14 100%);
     }
-    /* Menyatukan background putih sprite 3D secara bersih */
-    .sprite-clean {
-      mix-blend-mode: multiply;
+    .glass-panel {
+      background: rgba(15, 34, 58, 0.78);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65);
     }
-    .badge-3d {
-      background: radial-gradient(circle at 30% 30%, #ffffff, #f1f5f9);
-      border-radius: 9999px;
-      border: 5px solid #ffffff;
-      box-shadow: 0 12px 24px rgba(0,0,0,0.22), inset 0 -6px 0 rgba(0,0,0,0.08);
+    .mode-card {
+      background: linear-gradient(90deg, rgba(30, 58, 95, 0.85) 0%, rgba(17, 36, 62, 0.9) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .mode-card:hover {
+      transform: translateX(6px) scale(1.01);
+      border-color: rgba(251, 191, 36, 0.7);
+      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.2);
+    }
+    .mode-card:active {
+      transform: scale(0.98);
+    }
+    .title-3d-white {
+      color: #ffffff;
+      text-shadow: 0 4px 0 #94a3b8, 0 8px 20px rgba(0,0,0,0.6);
+    }
+    .title-3d-gold {
+      background: linear-gradient(180deg, #FFF085 0%, #F59E0B 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 5px 0 #92400e) drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+    }
+    /* Tombol D-Pad Oranye Arcade */
+    .dpad-btn {
+      background: linear-gradient(180deg, #FB923C 0%, #EA580C 100%);
+      border: 3px solid #FFEDD5;
+      box-shadow: 0 5px 0 #9A3412, 0 8px 15px rgba(0,0,0,0.35);
+      color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      border-radius: 1rem;
+      transition: transform 0.08s ease;
     }
-    .btn-clay-amber {
-      background: linear-gradient(180deg, #FFE047 0%, #F59E0B 100%);
-      box-shadow: 0 7px 0 #B45309, 0 12px 20px rgba(0,0,0,0.25);
-      transition: all 0.1s ease;
+    .dpad-btn:active, .dpad-btn.active-press {
+      transform: translateY(4px);
+      box-shadow: 0 1px 0 #9A3412;
+      background: linear-gradient(180deg, #F97316 0%, #C2410C 100%);
     }
-    .btn-clay-amber:active { transform: translateY(5px); box-shadow: 0 2px 0 #B45309; }
-
-    .btn-clay-emerald {
-      background: linear-gradient(180deg, #34D399 0%, #059669 100%);
-      box-shadow: 0 7px 0 #065F46, 0 12px 20px rgba(0,0,0,0.25);
-      transition: all 0.1s ease;
+    @keyframes floatBoat {
+      0%, 100% { transform: translateY(0px) rotate(-1.5deg); }
+      50% { transform: translateY(-12px) rotate(1.5deg); }
     }
-    .btn-clay-emerald:active { transform: translateY(5px); box-shadow: 0 2px 0 #065F46; }
-
-    .btn-clay-sky {
-      background: linear-gradient(180deg, #38BDF8 0%, #0284C7 100%);
-      box-shadow: 0 7px 0 #075985, 0 12px 20px rgba(0,0,0,0.25);
-      transition: all 0.1s ease;
+    .animate-boat {
+      animation: floatBoat 3.6s ease-in-out infinite;
     }
-    .btn-clay-sky:active { transform: translateY(5px); box-shadow: 0 2px 0 #075985; }
-
-    .btn-clay-rose {
-      background: linear-gradient(180deg, #FB7185 0%, #E11D48 100%);
-      box-shadow: 0 7px 0 #9F1239, 0 12px 20px rgba(0,0,0,0.25);
-      transition: all 0.1s ease;
+    @keyframes popCountdown {
+      0% { transform: scale(0.3); opacity: 0; }
+      50% { transform: scale(1.15); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
     }
-    .btn-clay-rose:active { transform: translateY(5px); box-shadow: 0 2px 0 #9F1239; }
-
-    .card-clay {
-      box-shadow: 0 14px 0 rgba(0,0,0,0.22), 0 22px 35px rgba(0,0,0,0.2);
-      border: 5px solid rgba(255,255,255,0.92);
-    }
-
-    @keyframes floatToy {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-8px) rotate(2deg); }
-    }
-    .animate-toy { animation: floatToy 3s ease-in-out infinite; }
-
-    @keyframes hammerHit {
-      0% { transform: scale(0.6) rotate(35deg); opacity: 1; }
-      40% { transform: scale(1.15) rotate(-35deg); opacity: 1; }
-      100% { transform: scale(0.9) rotate(-15deg); opacity: 0; }
-    }
-    .hammer-anim {
-      animation: hammerHit 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    }
-
-    @keyframes waveMove {
-      0% { background-position-x: 0px; }
-      100% { background-position-x: -400px; }
-    }
-    .ocean-lane {
-      background: repeating-linear-gradient(
-        90deg,
-        rgba(255,255,255,0.12) 0px,
-        rgba(255,255,255,0.12) 40px,
-        transparent 40px,
-        transparent 80px
-      );
-      animation: waveMove 4s linear infinite;
+    .countdown-pop {
+      animation: popCountdown 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     }
   </style>
 </head>
-<body class="h-screen w-screen overflow-hidden bg-sky-300 flex flex-col justify-between p-2.5 md:p-4 relative">
+<body class="h-screen w-screen overflow-hidden lobby-bg text-white relative">
 
-  <!-- CANVAS CONFETTI -->
-  <canvas id="confettiCanvas" class="fixed inset-0 pointer-events-none z-50"></canvas>
-
-  <!-- EFEK PALU MELAYANG SAAT LAYAR DIKETUK -->
-  <div id="floatingHammer" class="hidden fixed pointer-events-none z-50 w-28 h-28 -ml-14 -mt-14">
-    <img src="assets/sprite-palu-emas.png" class="w-full h-full object-contain rounded-full bg-white/80 p-1 shadow-xl" />
-  </div>
-
-  <!-- ==================== HEADER UTAMA ==================== -->
-  <header class="w-full max-w-7xl mx-auto bg-white/95 backdrop-blur-md rounded-3xl px-4 py-2 shadow-xl border-4 border-white flex flex-wrap items-center justify-between gap-2 z-20">
-    <div class="flex items-center gap-3">
-      <button onclick="speakManual('Halo Arsitek Cilik Kelas Dua! Ayo bermain sambil meneladani kesabaran dan kerja keras Nabi Nuh alaihis salam!')" 
-              class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-amber-100 p-1 shadow-md border-2 border-amber-400 flex-shrink-0 hover:scale-105 transition">
-        <img src="assets/karakter-tukang-cilik.png" alt="Tukang Cilik" class="w-full h-full object-contain sprite-clean" />
-      </button>
-      <div>
-        <div class="inline-flex items-center gap-1.5 bg-amber-500 text-slate-950 text-[11px] font-extrabold px-3 py-0.5 rounded-full">
-          <span>PAI KELAS 2 SD • BAB 5: ASYIKNYA BELAJAR KISAH NABI NUH A.S.</span>
-        </div>
-        <h1 class="text-lg md:text-2xl font-extrabold text-slate-800 leading-tight">
-          Dunia Aksi 3D: Bahtera Nabi Nuh a.s.
-        </h1>
-      </div>
-    </div>
-
-    <div class="flex items-center gap-2">
-      <!-- Tombol Opsional Suara Pembaca -->
-      <button onclick="toggleVoiceOption()" id="btnVoiceToggle" class="bg-sky-100 hover:bg-sky-200 text-sky-900 border-2 border-sky-300 font-extrabold px-3 py-2 rounded-2xl text-xs md:text-sm flex items-center gap-1.5 shadow-sm">
-        <span id="voiceIcon">🔈</span>
-        <span id="voiceLabel">Suara Baca: Opsional</span>
-      </button>
-
-      <!-- Tombol Ringkasan Materi Bab 5 -->
-      <button onclick="openMateriModal()" class="btn-clay-emerald text-white px-3.5 py-2 rounded-2xl font-extrabold text-xs md:text-sm flex items-center gap-1.5">
-        <span>📖 Ringkasan Bab 5</span>
-      </button>
-
-      <!-- Tombol Kembali ke Menu -->
-      <button id="btnBackMenu" onclick="backToMainMenu()" class="hidden bg-rose-600 hover:bg-rose-500 text-white font-extrabold px-4 py-2 rounded-2xl shadow-lg text-xs md:text-sm">
-        🏠 MENU UTAMA
-      </button>
-    </div>
-  </header>
-
-  <!-- ==================== LAYAR MENU UTAMA (3 GAME AKSI FISIKA) ==================== -->
-  <main id="menuScreen" class="flex-1 w-full max-w-7xl mx-auto my-2.5 grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch z-10">
+  <!-- =====================================================================
+       1. LAYAR LOBBY UTAMA (SPLIT-SCREEN DASHBOARD SEPERTI VIDEO)
+       ===================================================================== -->
+  <main id="lobbyScreen" class="h-full w-full max-w-7xl mx-auto px-4 py-4 md:py-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center relative z-10 overflow-y-auto lg:overflow-hidden">
     
-    <!-- GAME AKSI 1: DEREK AYUN BAHTERA -->
-    <div class="card-clay bg-gradient-to-b from-amber-500 to-orange-600 rounded-[2.2rem] p-5 flex flex-col items-center justify-between text-center relative text-white">
-      <button onclick="speakManual('Permainan Satu: Derek Ayun Bahtera! Ayunkan katrol derek di atas bukit, lalu jatuhkan balok kayu yang benar tepat ke atas kapal!')" 
-              class="absolute top-4 right-4 w-11 h-11 rounded-2xl bg-white text-orange-600 shadow-md flex items-center justify-center font-bold text-xl hover:scale-110 transition">
-        🔊
-      </button>
-      <div class="badge-3d w-36 h-36 md:w-44 md:h-44 mt-1 animate-toy">
-        <img src="assets/sprite-derek-kayu.png" class="w-4/5 h-4/5 object-contain sprite-clean" />
-      </div>
-      <div>
-        <span class="bg-amber-950/60 text-amber-200 text-xs font-extrabold px-4 py-1 rounded-full uppercase">AKSI FISIKA 1 • AYUN & JATUHKAN</span>
-        <h2 class="text-2xl md:text-3xl font-extrabold mt-2 drop-shadow">DEREK AYUN BAHTERA</h2>
-        <p class="text-white/95 text-xs md:text-sm font-medium mt-1">Bidik ayunan katrol derek! Jatuhkan balok kayu yang benar tepat ke tengah rangka Bahtera!</p>
-      </div>
-      <button onclick="startCraneGame()" class="btn-clay-amber w-full py-3.5 rounded-2xl text-slate-950 font-extrabold text-lg flex items-center justify-center gap-2">
-        <span>🏗️ MAIN DEREK AYUN</span>
-      </button>
-    </div>
-
-    <!-- GAME AKSI 2: KEMUDI OMBAK PENYELAMAT -->
-    <div class="card-clay bg-gradient-to-b from-sky-500 to-blue-700 rounded-[2.2rem] p-5 flex flex-col items-center justify-between text-center relative text-white">
-      <button onclick="speakManual('Permainan Dua: Kemudi Ombak Penyelamat! Kemudikan Bahtera naik dan turun melewati gelombang laut untuk menjemput hewan dan menghindari pusaran badai!')" 
-              class="absolute top-4 right-4 w-11 h-11 rounded-2xl bg-white text-blue-600 shadow-md flex items-center justify-center font-bold text-xl hover:scale-110 transition">
-        🔊
-      </button>
-      <div class="badge-3d w-36 h-36 md:w-44 md:h-44 mt-1 animate-toy" style="animation-delay: 0.4s;">
-        <img src="assets/sprite-kapal-samping.png" class="w-4/5 h-4/5 object-contain sprite-clean" />
-      </div>
-      <div>
-        <span class="bg-blue-950/60 text-sky-200 text-xs font-extrabold px-4 py-1 rounded-full uppercase">AKSI FISIKA 2 • KEMUDI KAPAL</span>
-        <h2 class="text-2xl md:text-3xl font-extrabold mt-2 drop-shadow">KEMUDI PENYELAMAT</h2>
-        <p class="text-white/95 text-xs md:text-sm font-medium mt-1">Kemudikan Bahtera di 3 jalur ombak! Jemput gelembung kebaikan & hindari pusaran badai!</p>
-      </div>
-      <button onclick="startWaveGame()" class="btn-clay-emerald w-full py-3.5 rounded-2xl text-white font-extrabold text-lg flex items-center justify-center gap-2">
-        <span>⛵ KEMUDIKAN BAHTERA</span>
-      </button>
-    </div>
-
-    <!-- GAME AKSI 3: KETUK PALU 4 PENJURU (1, 2, ATAU 4 PEMAIN) -->
-    <div class="card-clay bg-gradient-to-b from-emerald-500 to-teal-700 rounded-[2.2rem] p-5 flex flex-col items-center justify-between text-center relative text-white">
-      <button onclick="speakManual('Permainan Tiga: Ketuk Palu Tukang Kayu! Bisa dimainkan dua anak atau empat anak sekaligus memukul papan target yang muncul dengan cepat!')" 
-              class="absolute top-4 right-4 w-11 h-11 rounded-2xl bg-white text-teal-600 shadow-md flex items-center justify-center font-bold text-xl hover:scale-110 transition">
-        🔊
-      </button>
-      <div class="badge-3d w-36 h-36 md:w-44 md:h-44 mt-1 animate-toy" style="animation-delay: 0.8s;">
-        <img src="assets/sprite-papan-target.png" class="w-4/5 h-4/5 object-contain sprite-clean" />
-      </div>
-      <div>
-        <span class="bg-teal-950/60 text-emerald-200 text-xs font-extrabold px-4 py-1 rounded-full uppercase">AKSI REFLEKS 3 • 2 ATAU 4 SISWA PID</span>
-        <h2 class="text-2xl md:text-3xl font-extrabold mt-2 drop-shadow">KETUK PALU CEPAT</h2>
-        <p class="text-white/95 text-xs md:text-sm font-medium mt-1">Papan target menyembul dari meja kerja! Pukul target yang benar dengan Palu Emas 3D!</p>
-      </div>
-      <div class="grid grid-cols-2 gap-2.5 w-full">
-        <button onclick="startHammerGame(2)" class="btn-clay-sky py-3.5 rounded-2xl text-white font-extrabold text-sm md:text-base">
-          🔨 2 PEMAIN
-        </button>
-        <button onclick="startHammerGame(4)" class="btn-clay-rose py-3.5 rounded-2xl text-white font-extrabold text-sm md:text-base">
-          🔨 4 PEMAIN
-        </button>
-      </div>
-    </div>
-
-  </main>
-
-  <!-- ==================== FOOTER RINGKAS 4 SUB-BAB ==================== -->
-  <footer id="footerBar" class="w-full max-w-7xl mx-auto bg-white/95 backdrop-blur-md rounded-3xl px-4 py-2 shadow-xl border-4 border-white flex flex-wrap items-center justify-between gap-2 z-20">
-    <span class="text-xs font-extrabold text-slate-600">📚 MATERI BAB 5 KELAS 2 SD (KLIK UNTUK BACA & DENGAR):</span>
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full sm:w-auto">
-      <button onclick="showSubBabModal('A')" class="bg-amber-100 hover:bg-amber-200 text-amber-900 font-extrabold text-xs px-3 py-1.5 rounded-xl border-2 border-amber-300">
-        A. Siapakah Nabi Nuh a.s.?
-      </button>
-      <button onclick="showSubBabModal('B')" class="bg-sky-100 hover:bg-sky-200 text-sky-900 font-extrabold text-xs px-3 py-1.5 rounded-xl border-2 border-sky-300">
-        B. Dakwah Nabi Nuh a.s.
-      </button>
-      <button onclick="showSubBabModal('C')" class="bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-extrabold text-xs px-3 py-1.5 rounded-xl border-2 border-emerald-300">
-        C. Sabar & Kerja Keras
-      </button>
-      <button onclick="showSubBabModal('D')" class="bg-purple-100 hover:bg-purple-200 text-purple-900 font-extrabold text-xs px-3 py-1.5 rounded-xl border-2 border-purple-300">
-        D. Meneladan Nabi Nuh a.s.
-      </button>
-    </div>
-  </footer>
-
-  <!-- =========================================================================
-       LAYAR GAME AKSI 1: DEREK AYUN BAHTERA (SWINGING CRANE PHYSICS)
-       ========================================================================= -->
-  <section id="craneScreen" class="hidden flex-1 w-full max-w-6xl mx-auto my-2 bg-gradient-to-b from-sky-200 via-sky-100 to-emerald-200 rounded-[2.5rem] p-4 shadow-2xl border-4 border-white flex-col justify-between relative overflow-hidden z-10">
-    <!-- HUD Atas -->
-    <div class="flex flex-wrap items-center justify-between gap-2 bg-white/90 px-4 py-2 rounded-2xl border-2 border-amber-300 z-20">
-      <div class="flex items-center gap-2">
-        <span class="bg-amber-500 text-slate-950 font-extrabold px-3 py-1 rounded-full text-xs">🏗️ DEREK AYUN BAHTERA</span>
-        <span id="craneStatusText" class="text-xs md:text-sm font-extrabold text-slate-700">Susun 5 Tingkat Kayu Bahtera!</span>
-      </div>
-      <div class="flex items-center gap-3">
-        <button onclick="speakManual(currentCraneBlock ? currentCraneBlock.text : '')" class="bg-sky-500 text-white text-xs font-extrabold px-3 py-1 rounded-full">
-          🔊 Baca Balok
-        </button>
-        <span class="bg-emerald-100 border-2 border-emerald-400 text-emerald-900 font-extrabold px-3 py-1 rounded-full text-sm">
-          🪵 Tingkat: <span id="craneStackCount">0</span> / 5
-        </span>
-        <span class="bg-amber-100 border-2 border-amber-400 text-amber-900 font-extrabold px-3 py-1 rounded-full text-sm">
-          ⭐ Skor: <span id="craneScore">0</span>
-        </span>
-      </div>
-    </div>
-
-    <!-- Arena Fisika Ayunan Derek -->
-    <div id="craneArena" class="flex-1 w-full relative overflow-hidden my-1">
-      <!-- Garis Rel Atas -->
-      <div class="w-full h-3 bg-amber-900/40 border-b-2 border-amber-950/30 absolute top-0 left-0"></div>
-
-      <!-- Objek Katrol + Balok yang Berayun -->
-      <div id="craneClawBox" class="absolute top-0 w-64 -ml-32 flex flex-col items-center pointer-events-none" style="left: 50%;">
-        <img src="assets/sprite-derek-kayu.png" class="w-28 h-28 md:w-32 md:h-32 object-contain sprite-clean" />
-        <div id="craneBlockCard" class=" -mt-4 bg-gradient-to-b from-amber-200 to-amber-400 border-4 border-amber-800 rounded-2xl px-4 py-2.5 shadow-xl text-center w-64">
-          <div class="text-[10px] font-extrabold uppercase text-amber-950 opacity-80">ISI BALOK KAYU:</div>
-          <div id="craneBlockLabel" class="text-sm md:text-base font-extrabold text-slate-900 leading-tight"></div>
-        </div>
+    <!-- KOLOM KIRI: HERO BRANDING & ARTWORK -->
+    <div class="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left justify-between h-full py-2">
+      <!-- Top Tag -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 text-xs font-extrabold tracking-widest uppercase">
+        <span>⚓ PAI KELAS 2 SD • BAB 5: KISAH NABI NUH A.S.</span>
       </div>
 
-      <!-- Zona Target Landasan Bahtera di Bawah Tengah -->
-      <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex flex-col items-center">
-        <!-- Tumpukan Balok yang Sudah Berhasil Mendarat -->
-        <div id="stackedPlanksContainer" class="flex flex-col-reverse items-center gap-1 mb-1"></div>
-        <!-- Landasan Bahtera -->
-        <div class="w-72 md:w-80 bg-gradient-to-b from-amber-700 to-amber-900 text-amber-100 border-4 border-amber-400 rounded-2xl py-2 px-4 text-center shadow-2xl flex items-center justify-center gap-3">
-          <img src="assets/sprite-kapal-samping.png" class="w-12 h-12 rounded-xl bg-white p-0.5 object-contain" />
+      <!-- Judul Besar 3D -->
+      <div class="my-2">
+        <h1 class="font-title text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-none">
+          <span class="title-3d-white">BAHTERA</span>
+          <span class="title-3d-gold ml-2">NUH A.S.</span>
+        </h1>
+        <p class="text-sky-200/80 text-sm md:text-base font-medium mt-2 max-w-lg">
+          Kemudikan Bahtera di atas gelombang banjir besar, ulurkan jaring cahaya untuk menyelamatkan hikmah & sepasang hewan, serta hindari pusaran badai!
+        </p>
+      </div>
+
+      <!-- Poster Artwork Heroik (Otomatis Memakai Gambar 3D Anda atau SVG Bahtera Megah) -->
+      <div class="relative w-64 h-60 sm:w-80 sm:h-72 my-auto flex items-center justify-center animate-boat">
+        <!-- Cahaya Emas Belakang -->
+        <div class="absolute inset-4 rounded-full bg-gradient-to-tr from-amber-500/30 via-sky-400/25 to-emerald-400/20 blur-2xl"></div>
+        <canvas id="heroPreviewCanvas" width="360" height="300" class="relative z-10 w-full h-full object-contain drop-shadow-2xl"></canvas>
+      </div>
+
+      <!-- Badge Total Tangkapan / Penyelamatan Kiri Bawah -->
+      <div class="flex flex-wrap items-center gap-3 w-full justify-center lg:justify-start mt-2">
+        <div class="glass-panel px-5 py-2.5 rounded-2xl flex items-center gap-3 border border-amber-400/30">
+          <div class="w-10 h-10 rounded-xl bg-amber-400/20 flex items-center justify-center text-2xl">🏆</div>
           <div class="text-left">
-            <div class="text-xs font-extrabold text-amber-300 uppercase">ZONA TARGET LANDASAN</div>
-            <div class="text-xs">Jatuhkan balok BENAR saat di atas sini!</div>
+            <div class="text-[10px] font-bold uppercase tracking-wider text-slate-300">TOTAL PENYELAMATAN</div>
+            <div class="text-lg font-extrabold text-amber-300"><span id="totalSavedDisplay">0</span> Hikmah</div>
           </div>
         </div>
+
+        <button onclick="toggleVoiceAuto()" id="btnVoiceLobby" class="glass-panel hover:bg-slate-800 px-4 py-2.5 rounded-2xl flex items-center gap-2 border border-sky-400/30 text-xs font-extrabold text-sky-200">
+          <span id="voiceLobbyIcon">🔈</span>
+          <span id="voiceLobbyText">Suara Baca Soal: OFF</span>
+        </button>
       </div>
     </div>
 
-    <!-- Tombol Aksi Fisik Bawah -->
-    <div class="grid grid-cols-2 gap-4 z-20">
-      <button onclick="dropCraneBlock()" class="btn-clay-emerald text-white py-3.5 rounded-2xl font-extrabold text-base md:text-xl flex items-center justify-center gap-2">
-        <span>⬇️ JATUHKAN KE KAPAL! (Jika Benar)</span>
-      </button>
-      <button onclick="discardCraneBlock()" class="btn-clay-rose text-white py-3.5 rounded-2xl font-extrabold text-base md:text-xl flex items-center justify-center gap-2">
-        <span>🗑️ BUANG BALOK SALAH! (Ganti Baru)</span>
-      </button>
+    <!-- KOLOM KANAN: PANEL "MISSION SETUP" -->
+    <div class="lg:col-span-6 w-full max-w-xl mx-auto">
+      <div class="glass-panel rounded-[2rem] p-5 md:p-7 border border-white/15">
+        <!-- Header Panel -->
+        <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
+          <div class="flex items-center gap-2.5">
+            <span class="text-amber-400 text-xl">🧭</span>
+            <h2 class="text-lg md:text-xl font-extrabold tracking-wider uppercase text-white">MISSION SETUP</h2>
+          </div>
+          <span class="text-xs font-bold bg-sky-500/20 text-sky-300 px-3 py-1 rounded-full border border-sky-400/30">
+            Kurikulum Merdeka
+          </span>
+        </div>
+
+        <!-- Dropdown Pilihan Materi & Kesulitan -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-4">
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-1.5">PILIH SUB-BAB MATERI</label>
+            <select id="selectSubBab" class="w-full bg-slate-900/90 border border-slate-600 focus:border-amber-400 rounded-xl px-3.5 py-2.5 text-sm font-bold text-white outline-none">
+              <option value="ALL">🌟 Semua Bab 5 (Lengkap)</option>
+              <option value="A">A. Siapakah Nabi Nuh a.s.?</option>
+              <option value="B">B. Dakwah Nabi Nuh a.s. (950 Thn)</option>
+              <option value="C">C. Sabar & Kerja Keras Buat Kapal</option>
+              <option value="D">D. Meneladan Kisah Nabi Nuh a.s.</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-1.5">TINGKAT GELOMBANG LAUT</label>
+            <select id="selectDifficulty" class="w-full bg-slate-900/90 border border-slate-600 focus:border-amber-400 rounded-xl px-3.5 py-2.5 text-sm font-bold text-white outline-none">
+              <option value="easy">🌊 Mudah (Arus Tenang)</option>
+              <option value="normal" selected>⛵ Sedang (Arus Normal)</option>
+              <option value="hard">⚡ Sulit (Badai Cepat)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 3 KARTU MODE PERMAINAN (PERSIS VIDEO) -->
+        <div class="space-y-3">
+          <!-- Mode 1: Petualang (Solo) -->
+          <button onclick="launchGameMode(1)" class="mode-card w-full rounded-2xl p-3.5 flex items-center justify-between text-left group">
+            <div class="flex items-center gap-3.5">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-400 to-rose-500 flex items-center justify-center text-2xl shadow-lg">
+                ⛵
+              </div>
+              <div>
+                <div class="text-base md:text-lg font-extrabold text-white group-hover:text-amber-300 transition">PETUALANG</div>
+                <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400">MODE SOLO (1 PEMAIN)</div>
+              </div>
+            </div>
+            <span class="text-slate-400 group-hover:text-amber-300 text-xl font-extrabold pr-2">❯</span>
+          </button>
+
+          <!-- Mode 2: Duel (1 vs 1) -->
+          <button onclick="launchGameMode(2)" class="mode-card w-full rounded-2xl p-3.5 flex items-center justify-between text-left group">
+            <div class="flex items-center gap-3.5">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center text-2xl shadow-lg">
+                ⚔️
+              </div>
+              <div>
+                <div class="text-base md:text-lg font-extrabold text-white group-hover:text-amber-300 transition">DUEL</div>
+                <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400">1 VS 1 (2 PEMAIN DI PAPAN KELAS)</div>
+              </div>
+            </div>
+            <span class="text-slate-400 group-hover:text-amber-300 text-xl font-extrabold pr-2">❯</span>
+          </button>
+
+          <!-- Mode 3: Team Duel (4 Pemain PID) -->
+          <button onclick="launchGameMode(4)" class="mode-card w-full rounded-2xl p-3.5 flex items-center justify-between text-left group">
+            <div class="flex items-center gap-3.5">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-2xl shadow-lg">
+                🏆
+              </div>
+              <div>
+                <div class="text-base md:text-lg font-extrabold text-white group-hover:text-amber-300 transition">TEAM DUEL (4 PEMAIN)</div>
+                <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400">4 BAHTERA BERJAJAR SEKALIGUS (IFP / PID)</div>
+              </div>
+            </div>
+            <span class="text-slate-400 group-hover:text-amber-300 text-xl font-extrabold pr-2">❯</span>
+          </button>
+        </div>
+
+        <!-- Footer Panel: Ringkasan Materi Guru -->
+        <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+          <span>💡 Gunakan D-Pad di layar atau ketuk langsung sasaran di air!</span>
+          <button onclick="openStudyModal()" class="text-amber-300 hover:underline font-extrabold">📖 Baca Materi</button>
+        </div>
+      </div>
     </div>
-  </section>
+  </main>
 
-  <!-- =========================================================================
-       LAYAR GAME AKSI 2: KEMUDI BAHTERA PENYELAMAT (3-LANE WAVE RUNNER)
-       ========================================================================= -->
-  <section id="waveScreen" class="hidden flex-1 w-full max-w-6xl mx-auto my-2 bg-gradient-to-b from-sky-400 via-blue-600 to-indigo-900 rounded-[2.5rem] p-4 shadow-2xl border-4 border-white flex-col justify-between relative overflow-hidden z-10 text-white">
-    <!-- HUD Atas -->
-    <div class="flex flex-wrap items-center justify-between gap-2 bg-slate-900/60 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/30 z-20">
-      <div class="flex items-center gap-3">
-        <span class="bg-emerald-400 text-slate-950 font-extrabold px-3 py-1 rounded-full text-xs">⛵ PELAYARAN PENYELAMATAN</span>
-        <span class="text-xs md:text-sm font-bold text-sky-100">Jemput Gelembung Kebaikan & Hindari Pusaran Badai!</span>
-      </div>
-      <div class="flex items-center gap-4 font-extrabold text-base">
-        <span id="waveLives">❤️❤️❤️</span>
-        <span class="bg-amber-400 text-slate-950 px-4 py-1 rounded-full">⭐ Terselamatkan: <span id="waveScore">0</span> / 8</span>
-      </div>
+  <!-- =====================================================================
+       2. LAYAR ARENA GAMEPLAY (100% FULLSCREEN CANVAS + HUD SEPERTI VIDEO)
+       ===================================================================== -->
+  <section id="gameArenaScreen" class="hidden fixed inset-0 w-screen h-screen overflow-hidden z-20 select-none">
+    
+    <!-- CANVAS UTAMA 60 FPS -->
+    <canvas id="oceanCanvas" class="w-full h-full block"></canvas>
+
+    <!-- OVERLAY HITUNG MUNDUR: 3... 2... 1... SIAP?! -->
+    <div id="countdownOverlay" class="hidden fixed inset-0 bg-slate-950/45 backdrop-blur-sm z-40 flex items-center justify-center pointer-events-none">
+      <div id="countdownText" class="font-title text-8xl md:text-9xl font-extrabold title-3d-gold">3</div>
     </div>
 
-    <!-- 3 Jalur Gelombang Laut (Bisa Diketuk Langsung untuk Pindah Jalur) -->
-    <div id="waveLanesContainer" class="flex-1 grid grid-rows-3 gap-2 my-2 relative overflow-hidden">
-      <!-- Jalur 0 (Atas) -->
-      <div onclick="setShipLane(0)" class="ocean-lane rounded-2xl border-2 border-sky-300/30 relative flex items-center cursor-pointer hover:bg-white/5">
-        <span class="text-[11px] font-bold text-sky-200/60 ml-3">JALUR OMBAK ATAS (Ketuk untuk ke sini)</span>
-      </div>
-      <!-- Jalur 1 (Tengah) -->
-      <div onclick="setShipLane(1)" class="ocean-lane rounded-2xl border-2 border-sky-300/30 relative flex items-center cursor-pointer hover:bg-white/5">
-        <span class="text-[11px] font-bold text-sky-200/60 ml-3">JALUR OMBAK TENGAH (Ketuk untuk ke sini)</span>
-      </div>
-      <!-- Jalur 2 (Bawah) -->
-      <div onclick="setShipLane(2)" class="ocean-lane rounded-2xl border-2 border-sky-300/30 relative flex items-center cursor-pointer hover:bg-white/5">
-        <span class="text-[11px] font-bold text-sky-200/60 ml-3">JALUR OMBAK BAWAH (Ketuk untuk ke sini)</span>
-      </div>
-
-      <!-- Sprite Kapal Bahtera Player -->
-      <div id="playerShip" class="absolute left-6 w-28 h-28 md:w-32 md:h-32 transition-all duration-200 z-20 flex items-center justify-center pointer-events-none" style="top: 36%;">
-        <div class="w-24 h-24 md:w-28 md:h-28 rounded-3xl bg-white p-1.5 border-4 border-amber-300 shadow-2xl flex items-center justify-center">
-          <img src="assets/sprite-kapal-samping.png" class="w-full h-full object-contain sprite-clean" />
+    <!-- HUD ATAS (PERSIS GAYA VIDEO MANCING KATA) -->
+    <div class="fixed top-3 left-3 right-3 flex items-start justify-between pointer-events-none z-30">
+      
+      <!-- Kiri Atas: Tombol Keluar + Kotak Putih Skor -->
+      <div class="flex items-center gap-2.5 pointer-events-auto">
+        <button onclick="openPauseModal()" class="w-12 h-12 rounded-2xl bg-rose-500 hover:bg-rose-600 border-2 border-white shadow-lg flex items-center justify-center text-white font-extrabold text-xl active:scale-90 transition">
+          ⬅
+        </button>
+        <div class="bg-white text-slate-900 rounded-2xl px-4 py-1.5 shadow-xl border-2 border-slate-100">
+          <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">PENYELAMATAN</div>
+          <div id="hudScoreText" class="text-lg md:text-xl font-extrabold text-blue-600 leading-tight">0 Poin</div>
         </div>
       </div>
 
-      <!-- Tempat Objek Mengapung Muncul -->
-      <div id="waveObjectsLayer" class="absolute inset-0 pointer-events-none z-10"></div>
-    </div>
-
-    <!-- Kontrol Kemudi Atas / Bawah Besar untuk Layar Sentuh PID -->
-    <div class="grid grid-cols-2 gap-4 z-20">
-      <button onclick="moveShip(-1)" class="btn-clay-amber text-slate-950 py-3 rounded-2xl font-extrabold text-lg flex items-center justify-center gap-2">
-        <span>🔼 KEMUDI NAIK KE ATAS</span>
-      </button>
-      <button onclick="moveShip(1)" class="btn-clay-sky text-white py-3 rounded-2xl font-extrabold text-lg flex items-center justify-center gap-2">
-        <span>🔽 KEMUDI TURUN KE BAWAH</span>
-      </button>
-    </div>
-  </section>
-
-  <!-- =========================================================================
-       LAYAR GAME AKSI 3: KETUK PALU CEPAT (1, 2, ATAU 4 PEMAIN SEKALIGUS)
-       ========================================================================= -->
-  <section id="hammerScreen" class="hidden flex-1 w-full max-w-7xl mx-auto my-2 flex-col justify-between z-10">
-    <!-- Bar Kontrol & Misi Target -->
-    <div class="bg-white/95 backdrop-blur-md rounded-3xl px-4 py-2.5 border-4 border-white shadow-xl mb-2 flex flex-wrap items-center justify-between gap-2">
-      <div class="flex items-center gap-2">
-        <span class="font-extrabold text-slate-700 text-xs">JUMLAH PEMAIN PID:</span>
-        <button onclick="startHammerGame(1)" id="btnHam1" class="px-3 py-1 rounded-xl font-extrabold text-xs border-2">1 Siswa</button>
-        <button onclick="startHammerGame(2)" id="btnHam2" class="px-3 py-1 rounded-xl font-extrabold text-xs border-2">2 Siswa</button>
-        <button onclick="startHammerGame(4)" id="btnHam4" class="px-3 py-1 rounded-xl font-extrabold text-xs border-2">4 Siswa</button>
+      <!-- Tengah Atas: Kapsul Timer + Papan Pertanyaan Putih Besar -->
+      <div class="flex flex-col items-center max-w-2xl w-full px-2 pointer-events-auto">
+        <div class="bg-blue-900/90 text-white border-2 border-sky-300/60 px-5 py-0.5 rounded-full text-sm md:text-base font-extrabold shadow-lg mb-1 flex items-center gap-1.5">
+          <span>⏱️</span>
+          <span id="hudTimer">03:00</span>
+        </div>
+        <div onclick="speakCurrentQuestion()" class="bg-white/95 hover:bg-white text-slate-900 rounded-3xl px-5 py-2.5 shadow-2xl border-4 border-sky-200 text-center cursor-pointer transition transform active:scale-98 w-full">
+          <div class="text-[10px] font-extrabold uppercase tracking-wider text-sky-600 flex items-center justify-center gap-1">
+            <span>🔊 KETUK UNTUK DENGAR SOAL • ULURKAN JARING KE JAWABAN BENAR!</span>
+          </div>
+          <h2 id="hudQuestionText" class="text-base sm:text-xl md:text-2xl font-extrabold text-slate-800 leading-snug mt-0.5">
+            Nabi Nuh a.s. berdakwah selama berapa tahun?
+          </h2>
+        </div>
       </div>
 
-      <div class="flex items-center gap-2 bg-amber-100 border-2 border-amber-400 px-4 py-1 rounded-2xl">
-        <img src="assets/sprite-palu-emas.png" class="w-8 h-8 rounded-lg bg-white object-contain" />
-        <span class="text-xs md:text-base font-extrabold text-slate-900">
-          PUKUL PAPAN BERTULISKAN: <span class="text-emerald-700 underline">FAKTA & TELADAN NABI NUH A.S.</span>! (Jangan Pukul yang Salah!)
-        </span>
+      <!-- Kanan Atas: Tombol Pause, Suara, & Fullscreen -->
+      <div class="flex items-center gap-2 pointer-events-auto">
+        <button onclick="openPauseModal()" class="w-12 h-12 rounded-2xl bg-amber-500 hover:bg-amber-600 border-2 border-white shadow-lg flex items-center justify-center text-white font-extrabold text-lg active:scale-90 transition" title="Jeda Permainan">
+          ⏸
+        </button>
+        <button onclick="toggleFullScreen()" class="hidden sm:flex w-12 h-12 rounded-2xl bg-sky-600 hover:bg-sky-500 border-2 border-white shadow-lg items-center justify-center text-white font-extrabold text-lg active:scale-90 transition" title="Layar Penuh">
+          ⛶
+        </button>
       </div>
     </div>
 
-    <!-- Grid Meja Kerja Pemain (Otomatis 1, 2, atau 4 Kolom) -->
-    <div id="hammerWorkbenches" class="flex-1 grid grid-cols-2 gap-3 items-stretch"></div>
+    <!-- KONTROL D-PAD VIRTUAL DI BAWAH LAYAR (OTOMATIS DISESUAIKAN: 1P, 2P, ATAU 4P) -->
+    <div id="controlsContainer" class="fixed bottom-3 left-4 right-4 flex items-end justify-between pointer-events-none z-30"></div>
+
   </section>
 
-  <!-- ==================== MODAL RINGKASAN MATERI BAB 5 ==================== -->
-  <div id="modalOverlay" class="hidden fixed inset-0 bg-slate-900/75 backdrop-blur-sm z-40 flex items-center justify-center p-4">
-    <div class="bg-white rounded-[2.5rem] max-w-2xl w-full p-6 md:p-7 border-4 border-amber-400 shadow-2xl text-center relative max-h-[90vh] overflow-y-auto">
-      <button onclick="closeModal()" class="absolute top-4 right-4 bg-rose-500 text-white w-10 h-10 rounded-full font-extrabold text-lg shadow">✕</button>
-      <div id="modalContent"></div>
+  <!-- =====================================================================
+       3. MODAL PAUSE ("PERMAINAN DIJEDA" PERSIS VIDEO)
+       ===================================================================== -->
+  <div id="pauseModal" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white text-slate-900 rounded-[2.2rem] max-w-sm w-full p-6 md:p-7 shadow-2xl border-4 border-slate-100 text-center">
+      <h2 class="font-title text-2xl md:text-3xl font-extrabold text-slate-800 mb-5">PERMAINAN DIJEDA</h2>
+      <div class="space-y-3">
+        <button onclick="resumeGame()" class="w-full py-3.5 rounded-2xl bg-gradient-to-b from-emerald-400 to-emerald-600 text-white font-extrabold text-lg shadow-lg border-b-4 border-emerald-800 active:translate-y-1">
+          LANJUTKAN
+        </button>
+        <button onclick="restartCurrentGame()" class="w-full py-3.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold text-lg border-b-4 border-slate-300 active:translate-y-1">
+          ULANGI LEVEL
+        </button>
+        <button onclick="quitToLobby()" class="w-full py-3.5 rounded-2xl bg-rose-100 hover:bg-rose-200 text-rose-600 font-extrabold text-lg border-b-4 border-rose-300 active:translate-y-1">
+          KEMBALI KE MENU
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       4. MODAL RINGKASAN MATERI BAB 5
+       ===================================================================== -->
+  <div id="studyModal" class="hidden fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white text-slate-900 rounded-[2.2rem] max-w-2xl w-full p-6 md:p-7 shadow-2xl border-4 border-amber-300 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeStudyModal()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-rose-500 text-white font-extrabold text-lg">✕</button>
+      <h2 class="font-title text-2xl md:text-3xl font-extrabold text-slate-800 mb-3">📖 Ringkasan Materi PAI Kelas 2 - Bab 5</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left text-sm">
+        <div class="bg-sky-50 p-3.5 rounded-2xl border-2 border-sky-200">
+          <h3 class="font-extrabold text-sky-900">A. Siapakah Nabi Nuh a.s.?</h3>
+          <p class="text-slate-700 mt-1">Cicit Nabi Idris a.s., keturunan ke-10 Nabi Adam a.s., Rasul pertama yang diutus kepada manusia, dan termasuk 5 Rasul <b>Ulul Azmi</b>.</p>
+        </div>
+        <div class="bg-amber-50 p-3.5 rounded-2xl border-2 border-amber-200">
+          <h3 class="font-extrabold text-amber-900">B. Dakwah Nabi Nuh a.s.</h3>
+          <p class="text-slate-700 mt-1">Berdakwah siang & malam selama <b>950 tahun</b> mengajak kaumnya menyembah Allah Swt. Anak beliau yang durhaka bernama <b>Kan'an</b>.</p>
+        </div>
+        <div class="bg-emerald-50 p-3.5 rounded-2xl border-2 border-emerald-200">
+          <h3 class="font-extrabold text-emerald-900">C. Sabar & Kerja Keras</h3>
+          <p class="text-slate-700 mt-1">Tetap sabar walau diejek, lalu bekerja keras membuat <b>Kapal (Bahtera) Kayu</b> raksasa di atas bukit hingga selamat dari banjir besar.</p>
+        </div>
+        <div class="bg-purple-50 p-3.5 rounded-2xl border-2 border-purple-200">
+          <h3 class="font-extrabold text-purple-900">D. Meneladan Nabi Nuh a.s.</h3>
+          <p class="text-slate-700 mt-1">Bersikap <b>sabar</b>, <b>bekerja keras</b>, pantang menyerah dalam belajar, patuh kepada orang tua, dan rajin berdoa kepada Allah Swt.</p>
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
     /* =====================================================================
-       1. SISTEM AUDIO ARCADE & SUARA PEMBACA OPSIONAL
+       1. BANK SOAL PAI KELAS 2 BAB 5 (DIKELOMPOKKAN PER SUB-BAB A, B, C, D)
+       ===================================================================== */
+    const QUESTION_DATABASE = [
+      // SUB-BAB A: Siapakah Nabi Nuh a.s.?
+      { sub: 'A', q: 'Nabi Nuh a.s. adalah keturunan ke-10 dari Nabi siapa?', ans: 'Nabi Adam a.s.', decoys: ['Nabi Musa a.s.', 'Nabi Isa a.s.', 'Nabi Daud a.s.'] },
+      { sub: 'A', q: 'Nabi Nuh a.s. merupakan cicit dari Nabi siapa?', ans: 'Nabi Idris a.s.', decoys: ['Nabi Saleh a.s.', 'Nabi Hud a.s.', 'Nabi Luth a.s.'] },
+      { sub: 'A', q: 'Karena kesabarannya yang luar biasa, Nabi Nuh termasuk gelar...', ans: 'Ulul Azmi', decoys: ['Al-Faruq', 'Ash-Shiddiq', 'Babul Ilmi'] },
+      { sub: 'A', q: 'Urutan Nabi Nuh a.s. di dalam 25 Nabi dan Rasul adalah ke...', ans: 'Ke-3 (Ketiga)', decoys: ['Ke-1 (Pertama)', 'Ke-10', 'Ke-25'] },
+
+      // SUB-BAB B: Dakwah Nabi Nuh a.s.
+      { sub: 'B', q: 'Berapa lama Nabi Nuh a.s. berdakwah kepada kaumnya?', ans: '950 Tahun', decoys: ['10 Tahun', '40 Tahun', '100 Tahun'] },
+      { sub: 'B', q: 'Nabi Nuh a.s. mengajak kaumnya untuk menyembah hanya kepada...', ans: 'Allah Swt.', decoys: ['Patung Berhala', 'Matahari', 'Raja Kaya'] },
+      { sub: 'B', q: 'Apa yang disembah oleh kaum Nabi Nuh yang tersesat?', ans: 'Patung Berhala', decoys: ['Api Unggun', 'Pohon Besar', 'Bintang'] },
+      { sub: 'B', q: 'Siapa nama anak Nabi Nuh a.s. yang membangkang dan menolak beriman?', ans: 'Kan\'an', decoys: ['Qabil', 'Zaid', 'Azar'] },
+
+      // SUB-BAB C: Sikap Sabar dan Kerja Keras Nabi Nuh a.s.
+      { sub: 'C', q: 'Atas perintah Allah Swt., Nabi Nuh bekerja keras membuat apa?', ans: 'Kapal Besar', decoys: ['Istana Tinggi', 'Jembatan', 'Menara Batu'] },
+      { sub: 'C', q: 'Bahan utama untuk membangun Bahtera Nabi Nuh a.s. adalah...', ans: 'Papan Kayu', decoys: ['Batu Bata', 'Besi Baja', 'Tanah Liat'] },
+      { sub: 'C', q: 'Selain orang beriman, siapa yang dibawa naik ke kapal Nabi Nuh?', ans: 'Sepasang Hewan', decoys: ['Patung Berhala', 'Pasukan Raja', 'Harta Karun'] },
+      { sub: 'C', q: 'Azab apa yang menimpa kaum Nabi Nuh yang menolak beriman?', ans: 'Banjir Besar', decoys: ['Hujan Batu', 'Angin Panas', 'Suara Menggelegar'] },
+      { sub: 'C', q: 'Saat diejek kaumnya ketika membuat kapal, sikap Nabi Nuh adalah...', ans: 'Tetap Sabar', decoys: ['Marah Besar', 'Putus Asa', 'Berhenti Kerja'] },
+
+      // SUB-BAB D: Meneladan Kisah Nabi Nuh a.s.
+      { sub: 'D', q: 'Meneladan Nabi Nuh a.s. saat kita mendapat tugas sekolah adalah...', ans: 'Bekerja Keras', decoys: ['Malas Belajar', 'Menyontek', 'Menyerah'] },
+      { sub: 'D', q: 'Jika ada teman yang mengejek kita, sikap teladan Nabi Nuh adalah...', ans: 'Sabar & Memaafkan', decoys: ['Membalas Ejekan', 'Memukul Teman', 'Menangis Terus'] },
+      { sub: 'D', q: 'Setelah selamat dari musibah, kita wajib mengucapkan...', ans: 'Alhamdulillah', decoys: ['Keluh Kesah', 'Marah-marah', 'Sombong'] },
+      { sub: 'D', q: 'Sikap anak sholeh kepada orang tua agar tidak seperti Kan\'an adalah...', ans: 'Patuh & Hormat', decoys: ['Membantah', 'Berbohong', 'Melawan'] }
+    ];
+
+    /* =====================================================================
+       2. PEMUAT GAMBAR 3D + AUTO-CHROMA KEY (PENGHAPUS BACKGROUND PUTIH OTOMATIS)
+       ===================================================================== */
+    const loadedSprites = {
+      ark: null,
+      character: null
+    };
+
+    function loadAndCleanWhiteBg(src, key) {
+      const img = new Image();
+      img.crossOrigin = 'Anonymous';
+      img.onload = () => {
+        try {
+          const off = document.createElement('canvas');
+          off.width = img.width;
+          off.height = img.height;
+          const octx = off.getContext('2d');
+          octx.drawImage(img, 0, 0);
+          const imgData = octx.getImageData(0, 0, off.width, off.height);
+          const d = imgData.data;
+          // Hapus piksel putih/abu-abu terang di tepi luar menjadi transparan
+          for (let i = 0; i < d.length; i += 4) {
+            if (d[i] > 240 && d[i + 1] > 240 && d[i + 2] > 240) {
+              d[i + 3] = 0;
+            }
+          }
+          octx.putImageData(imgData, 0, 0);
+          loadedSprites[key] = off;
+          drawLobbyPreview();
+        } catch (e) {
+          loadedSprites[key] = img;
+          drawLobbyPreview();
+        }
+      };
+      img.src = src;
+    }
+
+    // Coba muat gambar 3D yang sudah ada di folder assets Bapak
+    loadAndCleanWhiteBg('assets/sprite-kapal-samping.png', 'ark');
+    loadAndCleanWhiteBg('assets/karakter-tukang-cilik.png', 'character');
+
+    /* =====================================================================
+       3. AUDIO SYNTHESIZER & SUARA PEMBACA OPSIONAL
        ===================================================================== */
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
     let audioCtx = null;
-    let autoReadVoice = false;
+    let voiceAuto = false;
+    let totalSavedAllTime = parseInt(localStorage.getItem('BAHTERA_NUH_TOTAL_SAVED') || '0', 10);
+    document.getElementById('totalSavedDisplay').innerText = totalSavedAllTime;
 
-    function toggleVoiceOption() {
-      autoReadVoice = !autoReadVoice;
-      document.getElementById('voiceIcon').innerText = autoReadVoice ? '🔊' : '🔈';
-      document.getElementById('voiceLabel').innerText = `Suara Otomatis: ${autoReadVoice ? 'ON' : 'OFF'}`;
-      if (autoReadVoice) speakManual('Suara pembaca otomatis dinyalakan.');
-      else if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    function toggleVoiceAuto() {
+      voiceAuto = !voiceAuto;
+      document.getElementById('voiceLobbyIcon').innerText = voiceAuto ? '🔊' : '🔈';
+      document.getElementById('voiceLobbyText').innerText = `Suara Baca Soal: ${voiceAuto ? 'ON' : 'OFF'}`;
+      if (voiceAuto) speakText('Suara pembaca soal otomatis diaktifkan.');
     }
 
-    function normalizeIndo(text) {
-      return text
+    function speakText(raw) {
+      if (!('speechSynthesis' in window) || !raw) return;
+      window.speechSynthesis.cancel();
+      const clean = raw
         .replace(/a\.s\./gi, 'alaihis salam')
         .replace(/Swt\./gi, 'subhanahu wa taala')
         .replace(/950/g, 'sembilan ratus lima puluh')
         .replace(/Kan'an/gi, 'Kan-an');
-    }
-
-    function speakManual(text) {
-      if (!text || !('speechSynthesis' in window)) return;
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(normalizeIndo(text));
+      const u = new SpeechSynthesisUtterance(clean);
       u.lang = 'id-ID';
       u.rate = 0.95;
       window.speechSynthesis.speak(u);
     }
 
-    function playSFX(type) {
+    function speakCurrentQuestion() {
+      if (currentQuestionObj) speakText(currentQuestionObj.q);
+    }
+
+    function playTone(type) {
       if (!audioCtx) audioCtx = new AudioCtx();
       const now = audioCtx.currentTime;
       const osc = audioCtx.createOscillator();
@@ -422,503 +444,769 @@
       osc.connect(gain);
       gain.connect(audioCtx.destination);
 
-      if (type === 'thud') {
+      if (type === 'count') {
         osc.type = 'triangle';
-        osc.frequency.setValueAtTime(160, now);
-        osc.frequency.setValueAtTime(520, now + 0.08);
-        osc.frequency.setValueAtTime(660, now + 0.16);
-        gain.gain.setValueAtTime(0.3, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
-        osc.start(now);
-        osc.stop(now + 0.38);
-      } else if (type === 'splash') {
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(240, now);
-        osc.frequency.setValueAtTime(140, now + 0.15);
-        gain.gain.setValueAtTime(0.25, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
-        osc.start(now);
-        osc.stop(now + 0.35);
-      } else if (type === 'whack') {
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(300, now);
-        osc.frequency.setValueAtTime(600, now + 0.06);
-        gain.gain.setValueAtTime(0.22, now);
+        osc.frequency.setValueAtTime(440, now);
+        gain.gain.setValueAtTime(0.2, now);
         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
         osc.start(now);
         osc.stop(now + 0.2);
+      } else if (type === 'go') {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(587.33, now);
+        osc.frequency.setValueAtTime(880, now + 0.12);
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+        osc.start(now);
+        osc.stop(now + 0.45);
+      } else if (type === 'catch') {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(523.25, now);
+        osc.frequency.setValueAtTime(659.25, now + 0.08);
+        osc.frequency.setValueAtTime(783.99, now + 0.16);
+        gain.gain.setValueAtTime(0.28, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+        osc.start(now);
+        osc.stop(now + 0.45);
+      } else if (type === 'zap') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(190, now);
+        osc.frequency.setValueAtTime(120, now + 0.15);
+        gain.gain.setValueAtTime(0.22, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+        osc.start(now);
+        osc.stop(now + 0.35);
       }
     }
 
-    // Animasi Palu Emas 3D di Titik Ketukan Layar
-    function showHammerStrike(x, y) {
-      const h = document.getElementById('floatingHammer');
-      h.style.left = `${x}px`;
-      h.style.top = `${y}px`;
-      h.classList.remove('hidden', 'hammer-anim');
-      void h.offsetWidth;
-      h.classList.add('hammer-anim');
-      setTimeout(() => h.classList.add('hidden'), 420);
-    }
-
     /* =====================================================================
-       2. DATABASE ITEM FAKTA VS JEBAKAN (BAB 5 KELAS 2 SD)
+       4. ILUSTRASI BAHTERA DI HALAMAN LOBBY KIRI
        ===================================================================== */
-    const NABI_NUH_ITEMS = [
-      { text: 'Berdakwah 950 Tahun', isCorrect: true },
-      { text: 'Membangun Kapal Besar', isCorrect: true },
-      { text: 'Cicit Nabi Idris a.s.', isCorrect: true },
-      { text: 'Keturunan ke-10 Nabi Adam', isCorrect: true },
-      { text: 'Termasuk Rasul Ulul Azmi', isCorrect: true },
-      { text: 'Sabar Saat Diejek Kaumnya', isCorrect: true },
-      { text: 'Bekerja Keras & Rajin', isCorrect: true },
-      { text: 'Membawa Sepasang Hewan', isCorrect: true },
-      { text: 'Menyembah Berhala (Salah!)', isCorrect: false },
-      { text: 'Mudah Marah & Putus Asa', isCorrect: false },
-      { text: 'Membangkang Seperti Kan\'an', isCorrect: false },
-      { text: 'Berdakwah Cuma 2 Tahun', isCorrect: false },
-      { text: 'Malas Belajar & Bekerja', isCorrect: false }
-    ];
+    function drawLobbyPreview() {
+      const c = document.getElementById('heroPreviewCanvas');
+      if (!c) return;
+      const ctx = c.getContext('2d');
+      ctx.clearRect(0, 0, c.width, c.height);
 
-    /* =====================================================================
-       3. NAVIGASI ANTAR-LAYAR & PEMBERSIH LOOP GAME
-       ===================================================================== */
-    let craneAnimId = null;
-    let waveAnimId = null;
-    let waveSpawnTimer = null;
-    let hammerTimer = null;
-
-    function stopAllLoops() {
-      if (craneAnimId) cancelAnimationFrame(craneAnimId);
-      if (waveAnimId) cancelAnimationFrame(waveAnimId);
-      if (waveSpawnTimer) clearInterval(waveSpawnTimer);
-      if (hammerTimer) clearInterval(hammerTimer);
-    }
-
-    function showScreen(id) {
-      stopAllLoops();
-      ['menuScreen', 'craneScreen', 'waveScreen', 'hammerScreen'].forEach(s => {
-        const el = document.getElementById(s);
-        el.classList.add('hidden');
-        el.classList.remove('flex', 'grid');
+      // Pelangi Melengkung
+      const rainbowColors = ['#EF4444', '#F59E0B', '#FDE047', '#10B981', '#38BDF8'];
+      rainbowColors.forEach((col, i) => {
+        ctx.beginPath();
+        ctx.arc(180, 210, 130 - i * 8, Math.PI, 0);
+        ctx.strokeStyle = col;
+        ctx.lineWidth = 7;
+        ctx.stroke();
       });
-      const target = document.getElementById(id);
-      target.classList.remove('hidden');
-      target.classList.add(id === 'menuScreen' ? 'grid' : 'flex');
 
-      document.getElementById('btnBackMenu').classList.toggle('hidden', id === 'menuScreen');
-      document.getElementById('footerBar').classList.toggle('hidden', id !== 'menuScreen');
-    }
-
-    function backToMainMenu() {
-      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-      showScreen('menuScreen');
-    }
-
-    /* =====================================================================
-       4. GAME AKSI 1: DEREK AYUN BAHTERA (SWINGING CRANE PHYSICS)
-       ===================================================================== */
-    let craneAngle = 0;
-    let craneXPercent = 50;
-    let craneStack = 0;
-    let craneScore = 0;
-    let currentCraneBlock = null;
-    let isDropping = false;
-
-    function startCraneGame() {
-      showScreen('craneScreen');
-      craneStack = 0;
-      craneScore = 0;
-      document.getElementById('stackedPlanksContainer').innerHTML = '';
-      updateCraneHUD();
-      loadNextCraneBlock();
-      runCraneSwingLoop();
-    }
-
-    function updateCraneHUD() {
-      document.getElementById('craneStackCount').innerText = craneStack;
-      document.getElementById('craneScore').innerText = craneScore;
-    }
-
-    function loadNextCraneBlock() {
-      isDropping = false;
-      currentCraneBlock = NABI_NUH_ITEMS[Math.floor(Math.random() * NABI_NUH_ITEMS.length)];
-      const card = document.getElementById('craneBlockCard');
-      card.style.transform = 'translateY(0px)';
-      document.getElementById('craneBlockLabel').innerText = currentCraneBlock.text;
-      if (autoReadVoice) speakManual(currentCraneBlock.text);
-    }
-
-    function runCraneSwingLoop() {
-      if (!isDropping) {
-        craneAngle += 0.032;
-        craneXPercent = 50 + Math.sin(craneAngle) * 34; // Berayun antara 16% sampai 84% layar
-        document.getElementById('craneClawBox').style.left = `${craneXPercent}%`;
-      }
-      craneAnimId = requestAnimationFrame(runCraneSwingLoop);
-    }
-
-    function dropCraneBlock() {
-      if (isDropping) return;
-      isDropping = true;
-      const card = document.getElementById('craneBlockCard');
-      card.style.transition = 'transform 0.45s cubic-bezier(0.5, 0, 0.75, 0)';
-      card.style.transform = 'translateY(220px)';
-
-      setTimeout(() => {
-        card.style.transition = 'none';
-        // Cek apakah posisi ayunan berada di tengah zona landasan kapal (antara 34% - 66%)
-        const hitTargetZone = craneXPercent >= 33 && craneXPercent <= 67;
-
-        if (hitTargetZone && currentCraneBlock.isCorrect) {
-          playSFX('thud');
-          craneStack++;
-          craneScore += 100;
-          fireConfetti();
-          document.getElementById('craneStatusText').innerText = '✅ Mantap! Balok terpasang di atas Bahtera!';
-
-          const plank = document.createElement('div');
-          plank.className = 'bg-amber-600 text-white text-xs font-extrabold px-5 py-1.5 rounded-xl border-2 border-amber-300 shadow';
-          plank.innerText = `🪵 ${currentCraneBlock.text}`;
-          document.getElementById('stackedPlanksContainer').appendChild(plank);
-          updateCraneHUD();
-
-          if (craneStack >= 5) {
-            speakManual('Alhamdulillah! Lima tingkat Bahtera Nabi Nuh berhasil kamu bangun dengan sempurna!');
-            setTimeout(backToMainMenu, 2200);
-            return;
-          }
-        } else if (!currentCraneBlock.isCorrect) {
-          playSFX('splash');
-          document.getElementById('craneStatusText').innerText = '❌ Ups! Itu tadi pernyataan yang SALAH, seharusnya dibuang!';
-        } else {
-          playSFX('splash');
-          document.getElementById('craneStatusText').innerText = '🌊 Meleset ke pinggir! Tunggu derek berada di tengah kapal ya!';
-        }
-        loadNextCraneBlock();
-      }, 460);
-    }
-
-    function discardCraneBlock() {
-      if (isDropping) return;
-      if (!currentCraneBlock.isCorrect) {
-        playSFX('thud');
-        craneScore += 50;
-        document.getElementById('craneStatusText').innerText = '👍 Cerdas! Balok yang salah berhasil kamu buang!';
-        updateCraneHUD();
+      // Gambar Kapal 3D (atau Vektor Bahtera Megah)
+      if (loadedSprites.ark) {
+        ctx.drawImage(loadedSprites.ark, 55, 45, 250, 210);
       } else {
-        playSFX('splash');
-        document.getElementById('craneStatusText').innerText = '😅 Sayang sekali, balok itu tadi BENAR lho!';
+        drawVectorArk(ctx, 180, 175, 1.45, '#F59E0B');
       }
-      loadNextCraneBlock();
+
+      // Ombak Berkilau di Bawah Kapal
+      ctx.fillStyle = '#0284C7';
+      ctx.beginPath();
+      ctx.ellipse(180, 250, 140, 22, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#38BDF8';
+      ctx.beginPath();
+      ctx.ellipse(180, 246, 115, 14, 0, 0, Math.PI * 2);
+      ctx.fill();
     }
+    drawLobbyPreview();
 
-    /* =====================================================================
-       5. GAME AKSI 2: KEMUDI BAHTERA PENYELAMAT (3-LANE WAVE RUNNER)
-       ===================================================================== */
-    let shipLane = 1; // 0 = Atas, 1 = Tengah, 2 = Bawah
-    let waveScore = 0;
-    let waveLives = 3;
-    let waveObjects = [];
+    // Fungsi Menggambar Kapal Bahtera Vektor Transparan (Mulus 100% Tanpa Kotak Putih)
+    function drawVectorArk(ctx, cx, cy, scale, flagColor) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(scale, scale);
 
-    function startWaveGame() {
-      showScreen('waveScreen');
-      shipLane = 1;
-      waveScore = 0;
-      waveLives = 3;
-      waveObjects = [];
-      document.getElementById('waveObjectsLayer').innerHTML = '';
-      updateShipPosition();
-      updateWaveHUD();
+      // Rumah kabin atas bahtera
+      ctx.fillStyle = '#B45309';
+      ctx.strokeStyle = '#451A03';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.roundRect(-42, -48, 84, 34, 8);
+      ctx.fill();
+      ctx.stroke();
 
-      waveSpawnTimer = setInterval(spawnWaveObject, 2000);
-      spawnWaveObject();
-      runWaveLoop();
-    }
+      // Atap Bahtera
+      ctx.fillStyle = '#D97706';
+      ctx.beginPath();
+      ctx.moveTo(-52, -46);
+      ctx.lineTo(0, -68);
+      ctx.lineTo(52, -46);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
 
-    function setShipLane(laneIndex) {
-      shipLane = Math.max(0, Math.min(2, laneIndex));
-      updateShipPosition();
-    }
-
-    function moveShip(delta) {
-      setShipLane(shipLane + delta);
-    }
-
-    function updateShipPosition() {
-      const topPositions = ['6%', '38%', '70%'];
-      document.getElementById('playerShip').style.top = topPositions[shipLane];
-    }
-
-    function updateWaveHUD() {
-      document.getElementById('waveScore').innerText = waveScore;
-      document.getElementById('waveLives').innerText = '❤️'.repeat(Math.max(0, waveLives));
-    }
-
-    function spawnWaveObject() {
-      const layer = document.getElementById('waveObjectsLayer');
-      if (!layer) return;
-      const item = NABI_NUH_ITEMS[Math.floor(Math.random() * NABI_NUH_ITEMS.length)];
-      const lane = Math.floor(Math.random() * 3);
-      const topPositions = ['8%', '40%', '72%'];
-
-      const el = document.createElement('div');
-      el.className = `absolute flex items-center gap-2.5 px-3.5 py-2 rounded-3xl shadow-xl border-4 ${
-        item.isCorrect ? 'bg-amber-100 border-amber-400 text-slate-900' : 'bg-slate-900 border-rose-500 text-white'
-      }`;
-      el.style.top = topPositions[lane];
-      el.style.left = '98%';
-      el.innerHTML = `
-        <img src="${item.isCorrect ? 'assets/sprite-gelembung-hewan.png' : 'assets/sprite-rintangan-badai.png'}" 
-             class="w-12 h-12 rounded-2xl bg-white p-0.5 object-contain" />
-        <span class="font-extrabold text-xs md:text-sm whitespace-nowrap">${item.text}</span>
-      `;
-
-      layer.appendChild(el);
-      waveObjects.push({ el, xPercent: 98, lane, item, done: false });
-    }
-
-    function runWaveLoop() {
-      waveObjects.forEach(obj => {
-        if (obj.done) return;
-        obj.xPercent -= 0.42;
-        obj.el.style.left = `${obj.xPercent}%`;
-
-        // Deteksi tabrakan dengan Kapal di sisi kiri (x sekitar 6% - 18%)
-        if (obj.xPercent <= 18 && obj.xPercent >= 5 && obj.lane === shipLane) {
-          obj.done = true;
-          obj.el.remove();
-          if (obj.item.isCorrect) {
-            playSFX('thud');
-            waveScore++;
-            fireConfetti();
-            if (autoReadVoice) speakManual(obj.item.text);
-          } else {
-            playSFX('splash');
-            waveLives--;
-          }
-          updateWaveHUD();
-
-          if (waveScore >= 8) {
-            stopAllLoops();
-            speakManual('Masya Allah, pelayaran sukses! Semua penumpang beriman dan sepasang hewan selamat di atas Bahtera!');
-            setTimeout(backToMainMenu, 2300);
-          } else if (waveLives <= 0) {
-            stopAllLoops();
-            speakManual('Bahtera terkena badai. Ayo kita kemudikan lagi dengan lebih hati-hati!');
-            setTimeout(backToMainMenu, 2000);
-          }
-        }
-
-        if (obj.xPercent < -20) {
-          obj.done = true;
-          obj.el.remove();
-        }
+      // Jendela Bulat Kabin
+      [-22, 0, 22].forEach(wx => {
+        ctx.fillStyle = '#FEF08A';
+        ctx.beginPath();
+        ctx.arc(wx, -31, 6, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
       });
 
-      waveObjects = waveObjects.filter(o => !o.done);
-      waveAnimId = requestAnimationFrame(runWaveLoop);
+      // Lambung Kapal Kayu Melengkung
+      const hullGrad = ctx.createLinearGradient(0, -18, 0, 26);
+      hullGrad.addColorStop(0, '#D97706');
+      hullGrad.addColorStop(1, '#78350F');
+      ctx.fillStyle = hullGrad;
+      ctx.beginPath();
+      ctx.moveTo(-72, -16);
+      ctx.lineTo(72, -16);
+      ctx.quadraticCurveTo(62, 24, 35, 24);
+      ctx.lineTo(-35, 24);
+      ctx.quadraticCurveTo(-62, 24, -72, -16);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Garis Papan Kayu
+      ctx.strokeStyle = 'rgba(69, 26, 3, 0.45)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(-64, -2); ctx.lineTo(64, -2);
+      ctx.moveTo(-56, 11); ctx.lineTo(56, 11);
+      ctx.stroke();
+
+      // Bendera Tim di Puncak Atap
+      ctx.fillStyle = flagColor || '#FDE047';
+      ctx.beginPath();
+      ctx.moveTo(0, -68);
+      ctx.lineTo(0, -88);
+      ctx.lineTo(24, -78);
+      ctx.lineTo(0, -70);
+      ctx.fill();
+
+      ctx.restore();
     }
 
     /* =====================================================================
-       6. GAME AKSI 3: KETUK PALU 4 PENJURU (1, 2, ATAU 4 PEMAIN WHACK-A-TARGET)
+       5. ENGINE GAMEPLAY CANVAS 60 FPS (PERSIS VIDEO MANCING KATA)
        ===================================================================== */
-    const HAMMER_TEAMS = [
-      { name: 'TIM SINGA', icon: '🦁', bg: 'from-amber-500 to-orange-600' },
-      { name: 'TIM JERAPAH', icon: '🦒', bg: 'from-sky-500 to-blue-700' },
-      { name: 'TIM GAJAH', icon: '🐘', bg: 'from-emerald-500 to-teal-700' },
-      { name: 'TIM MERPATI', icon: '🕊️', bg: 'from-purple-500 to-indigo-700' }
-    ];
+    const canvas = document.getElementById('oceanCanvas');
+    const ctx = canvas.getContext('2d');
 
-    let hammerPlayerCount = 2;
-    let hammerScores = [0, 0, 0, 0];
+    let gameActive = false;
+    let gamePaused = false;
+    let playerCount = 1;
+    let activeQuestions = [];
+    let currentQuestionObj = null;
+    let timeLeftSec = 180;
+    let timerInterval = null;
+    let animFrameId = null;
+    let waveTick = 0;
 
-    function startHammerGame(players) {
-      hammerPlayerCount = players;
-      hammerScores = [0, 0, 0, 0];
-      showScreen('hammerScreen');
+    // Data Kapal Pemain (1, 2, atau 4 Kapal)
+    let boats = [];
+    // Kapsul Jawaban yang Berenang
+    let swimmingAnswers = [];
+    // Hiu / Pusaran Badai Rintangan
+    let hazards = [];
+    // Gelembung Udara & Teks Skor Melayang (+10 Poin)
+    let bubbles = [];
+    let floatingTexts = [];
 
-      [1, 2, 4].forEach(n => {
-        const b = document.getElementById(`btnHam${n}`);
-        b.className = n === players
-          ? 'px-3 py-1 rounded-xl font-extrabold text-xs bg-emerald-600 text-white border-2 border-emerald-800'
-          : 'px-3 py-1 rounded-xl font-extrabold text-xs bg-slate-100 text-slate-600 border-2 border-slate-300';
-      });
-
-      const container = document.getElementById('hammerWorkbenches');
-      container.className = players === 4
-        ? 'flex-1 grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch'
-        : players === 2
-        ? 'flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch'
-        : 'flex-1 grid grid-cols-1 max-w-2xl mx-auto w-full items-stretch';
-
-      renderWorkbenches();
-      popUpRandomTargets();
-      hammerTimer = setInterval(popUpRandomTargets, 1850);
-    }
-
-    function renderWorkbenches() {
-      const container = document.getElementById('hammerWorkbenches');
-      container.innerHTML = '';
-
-      for (let p = 0; p < hammerPlayerCount; p++) {
-        const t = HAMMER_TEAMS[p];
-        const col = document.createElement('div');
-        col.className = `bg-gradient-to-b ${t.bg} rounded-[2rem] p-3.5 border-4 border-white shadow-xl flex flex-col justify-between text-white`;
-        col.innerHTML = `
-          <div class="flex items-center justify-between bg-black/25 px-3.5 py-1.5 rounded-2xl">
-            <span class="font-extrabold text-sm md:text-base">${t.icon} ${t.name}</span>
-            <span class="bg-amber-300 text-slate-950 font-extrabold px-3 py-0.5 rounded-full text-sm">
-              ⭐ <span id="hamScore_${p}">0</span>
-            </span>
-          </div>
-          <!-- 2 Lubang Meja Kerja tempat Papan Target Menyembul -->
-          <div id="holesContainer_${p}" class="flex-1 grid grid-rows-2 gap-3 my-2">
-            <div id="hole_${p}_0" class="bg-amber-950/50 rounded-3xl border-4 border-amber-200/40 flex items-center justify-center p-2 relative overflow-hidden"></div>
-            <div id="hole_${p}_1" class="bg-amber-950/50 rounded-3xl border-4 border-amber-200/40 flex items-center justify-center p-2 relative overflow-hidden"></div>
-          </div>
-        `;
-        container.appendChild(col);
-      }
-    }
-
-    function popUpRandomTargets() {
-      for (let p = 0; p < hammerPlayerCount; p++) {
-        [0, 1].forEach(holeIdx => {
-          const hole = document.getElementById(`hole_${p}_${holeIdx}`);
-          if (!hole) return;
-          const item = NABI_NUH_ITEMS[Math.floor(Math.random() * NABI_NUH_ITEMS.length)];
-
-          const targetBtn = document.createElement('button');
-          targetBtn.className = `w-full h-full rounded-2xl p-2 flex items-center gap-3 text-left shadow-lg border-4 transition transform hover:scale-102 active:scale-90 ${
-            item.isCorrect ? 'bg-amber-50 border-amber-400 text-slate-900' : 'bg-rose-100 border-rose-400 text-rose-950'
-          }`;
-          targetBtn.innerHTML = `
-            <img src="assets/sprite-papan-target.png" class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-white p-1 object-contain flex-shrink-0 sprite-clean" />
-            <div>
-              <div class="text-[10px] font-extrabold uppercase text-amber-700">KETUK PALU!</div>
-              <div class="text-sm md:text-base font-extrabold leading-tight">${item.text}</div>
-            </div>
-          `;
-
-          targetBtn.onclick = (e) => {
-            const rect = targetBtn.getBoundingClientRect();
-            showHammerStrike(e.clientX || (rect.left + rect.width / 2), e.clientY || (rect.top + rect.height / 2));
-
-            if (item.isCorrect) {
-              playSFX('whack');
-              hammerScores[p] += 100;
-              fireConfetti();
-            } else {
-              playSFX('splash');
-              hammerScores[p] = Math.max(0, hammerScores[p] - 50);
-            }
-            document.getElementById(`hamScore_${p}`).innerText = hammerScores[p];
-            hole.innerHTML = '<span class="text-xs font-extrabold text-amber-200/60">🔨 TERPUKUL!</span>';
-
-            if (hammerScores[p] >= 600) {
-              stopAllLoops();
-              speakManual(`Luar biasa! ${HAMMER_TEAMS[p].name} memenangkan kompetisi Tukang Kayu Bahtera!`);
-              setTimeout(backToMainMenu, 2300);
-            }
-          };
-
-          hole.innerHTML = '';
-          hole.appendChild(targetBtn);
-        });
-      }
-    }
-
-    /* =====================================================================
-       7. MODAL MATERI BAB 5 (A, B, C, D)
-       ===================================================================== */
-    function showSubBabModal(code) {
-      const data = {
-        A: {
-          title: 'A. Siapakah Nabi Nuh a.s.?',
-          points: [
-            'Nabi Nuh a.s. adalah cicit Nabi Idris a.s. dan keturunan ke-10 dari Nabi Adam a.s.',
-            'Beliau adalah Rasul pertama yang diutus Allah Swt. kepada umat manusia.',
-            'Beliau termasuk satu dari 5 Rasul Ulul Azmi (memiliki ketabahan luar biasa).'
-          ]
-        },
-        B: {
-          title: 'B. Dakwah Nabi Nuh a.s.',
-          points: [
-            'Nabi Nuh a.s. berdakwah siang dan malam selama 950 tahun dengan penuh kesabaran.',
-            'Beliau mengajak umatnya menyembah Allah Swt. dan meninggalkan penyembahan berhala.',
-            'Hanya sedikit yang beriman, bahkan putranya yang bernama Kan\'an ikut membangkang.'
-          ]
-        },
-        C: {
-          title: 'C. Sikap Sabar dan Kerja Keras Nabi Nuh a.s.',
-          points: [
-            'Atas perintah Allah Swt., Nabi Nuh a.s. bekerja keras membuat kapal (bahtera) kayu raksasa di atas bukit.',
-            'Meski diejek kaumnya, beliau tetap sabar dan terus menyelesaikan pembangunan kapal.',
-            'Saat banjir besar tiba, Nabi Nuh a.s., orang beriman, dan sepasang hewan selamat di dalam kapal.'
-          ]
-        },
-        D: {
-          title: 'D. Meneladan Kisah Nabi Nuh a.s.',
-          points: [
-            'Bersikap sabar dan tidak mudah marah ketika menghadapi ujian atau ejekan.',
-            'Bekerja keras, rajin belajar, dan pantang menyerah dalam kebaikan.',
-            'Selalu patuh kepada Allah Swt., orang tua, dan guru.'
-          ]
-        }
-      }[code];
-
-      document.getElementById('modalContent').innerHTML = `
-        <img src="assets/karakter-tukang-cilik.png" class="w-28 h-28 mx-auto object-contain sprite-clean mb-2" />
-        <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800">${data.title}</h2>
-        <ul class="text-left bg-amber-50 border-2 border-amber-300 rounded-2xl p-4 mt-3 space-y-2 text-base md:text-lg font-bold text-slate-700 list-disc list-inside">
-          ${data.points.map(p => `<li>${p}</li>`).join('')}
-        </ul>
-        <button onclick="speakManual('${data.title}. ${data.points.join(' ')}')" class="btn-clay-amber mt-4 px-6 py-2.5 rounded-2xl font-extrabold text-slate-950">
-          🔊 Bacakan Materi Ini
-        </button>
-      `;
-      document.getElementById('modalOverlay').classList.remove('hidden');
-    }
-
-    function openMateriModal() {
-      showSubBabModal('A');
-    }
-
-    function closeModal() {
-      document.getElementById('modalOverlay').classList.add('hidden');
-    }
-
-    /* =====================================================================
-       8. CONFETTI KEMENANGAN
-       ===================================================================== */
-    function fireConfetti() {
-      const canvas = document.getElementById('confettiCanvas');
-      const ctx = canvas.getContext('2d');
+    function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      const pieces = Array.from({ length: 40 }, () => ({
-        x: canvas.width / 2,
-        y: canvas.height / 2,
-        vx: (Math.random() - 0.5) * 14,
-        vy: (Math.random() - 0.8) * 14,
-        size: Math.random() * 10 + 6,
-        color: ['#FFB800', '#34D399', '#38BDF8', '#FB7185'][Math.floor(Math.random() * 4)]
-      }));
-      let frame = 0;
-      function render() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        pieces.forEach(p => {
-          p.x += p.vx;
-          p.y += p.vy;
-          p.vy += 0.35;
-          ctx.fillStyle = p.color;
-          ctx.fillRect(p.x, p.y, p.size, p.size);
+    }
+    window.addEventListener('resize', resizeCanvas);
+
+    function launchGameMode(numPlayers) {
+      playerCount = numPlayers;
+      const subBab = document.getElementById('selectSubBab').value;
+      activeQuestions = subBab === 'ALL'
+        ? [...QUESTION_DATABASE]
+        : QUESTION_DATABASE.filter(q => q.sub === subBab);
+
+      if (activeQuestions.length === 0) activeQuestions = [...QUESTION_DATABASE];
+
+      document.getElementById('lobbyScreen').classList.add('hidden');
+      document.getElementById('gameArenaScreen').classList.remove('hidden');
+      resizeCanvas();
+
+      setupBoatsAndControls();
+      startCountdownSequence();
+    }
+
+    function setupBoatsAndControls() {
+      const teamColors = ['#F59E0B', '#38BDF8', '#10B981', '#EC4899'];
+      const teamNames = ['BAHTERA 1', 'BAHTERA 2', 'BAHTERA 3', 'BAHTERA 4'];
+      boats = [];
+
+      for (let i = 0; i < playerCount; i++) {
+        const startX = ((i + 1) / (playerCount + 1)) * canvas.width;
+        boats.push({
+          id: i,
+          name: teamNames[i],
+          color: teamColors[i],
+          x: startX,
+          y: canvas.height * 0.25,
+          vx: 0,
+          score: 0,
+          netLength: 55,
+          netState: 'idle', // 'idle' | 'down' | 'up'
+          caughtItem: null,
+          stunTimer: 0,
+          keys: { left: false, right: false, down: false, up: false }
         });
-        if (++frame < 42) requestAnimationFrame(render);
-        else ctx.clearRect(0, 0, canvas.width, canvas.height);
       }
-      render();
+
+      renderDPadControls();
+      updateScoreHUD();
+    }
+
+    // Membuat D-Pad Oranye di Pojok Bawah Sesuai Jumlah Pemain
+    function renderDPadControls() {
+      const container = document.getElementById('controlsContainer');
+      container.innerHTML = '';
+
+      if (playerCount === 1 || playerCount === 2) {
+        for (let i = 0; i < playerCount; i++) {
+          const pad = document.createElement('div');
+          pad.className = 'pointer-events-auto flex flex-col items-center gap-1.5 bg-slate-950/35 backdrop-blur-md p-2.5 rounded-3xl border border-white/20';
+          pad.innerHTML = `
+            <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/90 text-slate-900">
+              ${playerCount === 1 ? 'KENDALI BAHTERA' : `PEMAIN ${i + 1}`}
+            </span>
+            <button data-p="${i}" data-dir="up" class="dpad-btn w-13 h-13 md:w-14 md:h-14 text-2xl font-extrabold">⬆️</button>
+            <div class="flex gap-2">
+              <button data-p="${i}" data-dir="left" class="dpad-btn w-13 h-13 md:w-14 md:h-14 text-2xl font-extrabold">⬅️</button>
+              <button data-p="${i}" data-dir="down" class="dpad-btn w-13 h-13 md:w-14 md:h-14 text-2xl font-extrabold">⬇️</button>
+              <button data-p="${i}" data-dir="right" class="dpad-btn w-13 h-13 md:w-14 md:h-14 text-2xl font-extrabold">➡️</button>
+            </div>
+          `;
+          container.appendChild(pad);
+        }
+      } else {
+        // Mode 4 Pemain di Layar PID: 4 Panel Kendali Berjajar Rapi
+        const wrapper = document.createElement('div');
+        wrapper.className = 'w-full grid grid-cols-4 gap-2 pointer-events-auto';
+        for (let i = 0; i < 4; i++) {
+          const box = document.createElement('div');
+          box.className = 'bg-slate-950/45 backdrop-blur-md p-2 rounded-2xl border border-white/20 flex flex-col items-center gap-1';
+          box.innerHTML = `
+            <div class="text-[11px] font-extrabold text-amber-300">P${i + 1}: <span id="p4Score_${i}">0</span> Poin</div>
+            <div class="flex gap-1.5 w-full justify-center">
+              <button data-p="${i}" data-dir="left" class="dpad-btn flex-1 py-2.5 text-lg font-extrabold">⬅️</button>
+              <button data-p="${i}" data-dir="down" class="dpad-btn flex-1 py-2.5 text-lg font-extrabold">🕸️ ULUR</button>
+              <button data-p="${i}" data-dir="right" class="dpad-btn flex-1 py-2.5 text-lg font-extrabold">➡️</button>
+            </div>
+          `;
+          wrapper.appendChild(box);
+        }
+        container.appendChild(wrapper);
+      }
+
+      // Pasang Event Sentuh & Mouse pada Semua Tombol D-Pad
+      container.querySelectorAll('button[data-p]').forEach(btn => {
+        const pIdx = parseInt(btn.getAttribute('data-p'), 10);
+        const dir = btn.getAttribute('data-dir');
+
+        const startPress = (e) => {
+          e.preventDefault();
+          btn.classList.add('active-press');
+          if (!boats[pIdx]) return;
+          if (dir === 'down') {
+            if (boats[pIdx].netState === 'idle') boats[pIdx].netState = 'down';
+          } else if (dir === 'up') {
+            boats[pIdx].netState = 'up';
+          } else {
+            boats[pIdx].keys[dir] = true;
+          }
+        };
+
+        const endPress = (e) => {
+          e.preventDefault();
+          btn.classList.remove('active-press');
+          if (boats[pIdx] && (dir === 'left' || dir === 'right')) {
+            boats[pIdx].keys[dir] = false;
+          }
+        };
+
+        btn.addEventListener('pointerdown', startPress);
+        btn.addEventListener('pointerup', endPress);
+        btn.addEventListener('pointerleave', endPress);
+      });
+    }
+
+    // Dukungan Keyboard & Ketuk Langsung di Air untuk Mode 1 Pemain
+    window.addEventListener('keydown', (e) => {
+      if (!boats[0]) return;
+      if (e.key === 'ArrowLeft' || e.key === 'a') boats[0].keys.left = true;
+      if (e.key === 'ArrowRight' || e.key === 'd') boats[0].keys.right = true;
+      if (e.key === 'ArrowDown' || e.key === 's' || e.key === ' ') {
+        if (boats[0].netState === 'idle') boats[0].netState = 'down';
+      }
+      if (e.key === 'ArrowUp' || e.key === 'w') boats[0].netState = 'up';
+    });
+    window.addEventListener('keyup', (e) => {
+      if (!boats[0]) return;
+      if (e.key === 'ArrowLeft' || e.key === 'a') boats[0].keys.left = false;
+      if (e.key === 'ArrowRight' || e.key === 'd') boats[0].keys.right = false;
+    });
+
+    // Urutan Hitung Mundur 3... 2... 1... SIAP?!
+    function startCountdownSequence() {
+      gameActive = false;
+      gamePaused = false;
+      const overlay = document.getElementById('countdownOverlay');
+      const textEl = document.getElementById('countdownText');
+      overlay.classList.remove('hidden');
+
+      const steps = ['3', '2', '1', 'SIAP?!'];
+      let idx = 0;
+
+      function nextCount() {
+        if (idx < steps.length) {
+          textEl.innerText = steps[idx];
+          textEl.classList.remove('countdown-pop');
+          void textEl.offsetWidth;
+          textEl.classList.add('countdown-pop');
+          playTone(idx === 3 ? 'go' : 'count');
+          idx++;
+          setTimeout(nextCount, 750);
+        } else {
+          overlay.classList.add('hidden');
+          beginOceanGameplay();
+        }
+      }
+      nextCount();
+    }
+
+    function beginOceanGameplay() {
+      gameActive = true;
+      timeLeftSec = 180;
+      updateTimerDisplay();
+
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (!gameActive || gamePaused) return;
+        timeLeftSec--;
+        updateTimerDisplay();
+        if (timeLeftSec <= 0) {
+          quitToLobby();
+        }
+      }, 1000);
+
+      pickNextQuestion();
+      spawnHazards();
+      if (animFrameId) cancelAnimationFrame(animFrameId);
+      runOceanLoop();
+    }
+
+    function updateTimerDisplay() {
+      const m = String(Math.floor(timeLeftSec / 60)).padStart(2, '0');
+      const s = String(timeLeftSec % 60).padStart(2, '0');
+      document.getElementById('hudTimer').innerText = `${m}:${s}`;
+    }
+
+    function updateScoreHUD() {
+      if (playerCount === 1) {
+        document.getElementById('hudScoreText').innerText = `${boats[0].score} Poin`;
+      } else if (playerCount === 2) {
+        document.getElementById('hudScoreText').innerText = `P1: ${boats[0].score} | P2: ${boats[1].score}`;
+      } else {
+        const total = boats.reduce((acc, b) => acc + b.score, 0);
+        document.getElementById('hudScoreText').innerText = `Total: ${total}`;
+        boats.forEach((b, i) => {
+          const el = document.getElementById(`p4Score_${i}`);
+          if (el) el.innerText = b.score;
+        });
+      }
+    }
+
+    // Memilih Soal Baru & Menyebar Ikan/Kapsul Jawaban di Dalam Laut
+    function pickNextQuestion() {
+      currentQuestionObj = activeQuestions[Math.floor(Math.random() * activeQuestions.length)];
+      document.getElementById('hudQuestionText').innerText = currentQuestionObj.q;
+      if (voiceAuto) speakText(currentQuestionObj.q);
+
+      const diff = document.getElementById('selectDifficulty').value;
+      const baseSpeed = diff === 'easy' ? 1.2 : diff === 'hard' ? 2.5 : 1.75;
+
+      swimmingAnswers = [];
+      const allLabels = [
+        { text: currentQuestionObj.ans, isCorrect: true },
+        ...currentQuestionObj.decoys.map(d => ({ text: d, isCorrect: false }))
+      ];
+
+      // Buat 6 target berenang di kedalaman berbeda
+      allLabels.forEach((item, idx) => {
+        const minY = canvas.height * 0.38;
+        const maxY = canvas.height * 0.82;
+        const yPos = minY + ((idx + 0.5) / allLabels.length) * (maxY - minY);
+        const dir = Math.random() > 0.5 ? 1 : -1;
+        const colors = ['#38BDF8', '#F59E0B', '#34D399', '#F472B6'];
+
+        swimmingAnswers.push({
+          text: item.text,
+          isCorrect: item.isCorrect,
+          x: Math.random() * (canvas.width - 240) + 120,
+          y: yPos,
+          vx: (baseSpeed + Math.random() * 0.8) * dir,
+          color: colors[idx % colors.length],
+          radius: 36,
+          caughtBy: null
+        });
+      });
+    }
+
+    function spawnHazards() {
+      const diff = document.getElementById('selectDifficulty').value;
+      const count = diff === 'easy' ? 1 : diff === 'hard' ? 3 : 2;
+      hazards = [];
+      for (let i = 0; i < count; i++) {
+        hazards.push({
+          x: Math.random() * canvas.width,
+          y: canvas.height * (0.46 + i * 0.16),
+          vx: (i % 2 === 0 ? 1 : -1) * (2.1 + i * 0.4),
+          radius: 38
+        });
+      }
+    }
+
+    /* =====================================================================
+       6. RENDER LOOP UTAMA 60 FPS (LANGIT, SINAR AIR, BAHTERA, JARING, IKAN, HIU)
+       ===================================================================== */
+    function runOceanLoop() {
+      if (!gameActive) return;
+      if (!gamePaused) {
+        updatePhysics();
+        renderOceanScene();
+      }
+      animFrameId = requestAnimationFrame(runOceanLoop);
+    }
+
+    function updatePhysics() {
+      waveTick += 0.04;
+      const waterSurfaceY = canvas.height * 0.26;
+
+      // 1. Update Kapal & Tali Jaring
+      boats.forEach(b => {
+        if (b.stunTimer > 0) b.stunTimer--;
+
+        const moveSpeed = 5.5;
+        if (b.keys.left) b.x -= moveSpeed;
+        if (b.keys.right) b.x += moveSpeed;
+        b.x = Math.max(80, Math.min(canvas.width - 80, b.x));
+        b.y = waterSurfaceY + Math.sin(waveTick + b.id * 1.5) * 6 - 12;
+
+        const netTipX = b.x;
+        const netTipY = b.y + b.netLength;
+
+        if (b.netState === 'down') {
+          b.netLength += 7.5;
+          // Cek apakah mencapai dasar laut
+          if (netTipY >= canvas.height - 50) {
+            b.netState = 'up';
+          }
+
+          // Cek Tabrakan dengan Rintangan Hiu/Badai
+          hazards.forEach(h => {
+            const distH = Math.hypot(netTipX - h.x, netTipY - h.y);
+            if (distH < h.radius + 18) {
+              playTone('zap');
+              b.stunTimer = 25;
+              b.netState = 'up';
+              floatingTexts.push({ x: netTipX, y: netTipY, text: '⚡ AWAS BADAI!', color: '#FB7185', life: 40 });
+            }
+          });
+
+          // Cek Tabrakan dengan Kapsul Jawaban
+          swimmingAnswers.forEach(ans => {
+            if (ans.caughtBy !== null) return;
+            const distA = Math.hypot(netTipX - ans.x, netTipY - ans.y);
+            if (distA < ans.radius + 22) {
+              ans.caughtBy = b.id;
+              b.caughtItem = ans;
+              b.netState = 'up';
+            }
+          });
+        } else if (b.netState === 'up') {
+          b.netLength -= 8.5;
+          if (b.caughtItem) {
+            b.caughtItem.x = b.x;
+            b.caughtItem.y = b.y + b.netLength + 15;
+          }
+
+          if (b.netLength <= 55) {
+            b.netLength = 55;
+            b.netState = 'idle';
+
+            if (b.caughtItem) {
+              const item = b.caughtItem;
+              b.caughtItem = null;
+              if (item.isCorrect) {
+                playTone('catch');
+                b.score += 10;
+                totalSavedAllTime++;
+                localStorage.setItem('BAHTERA_NUH_TOTAL_SAVED', totalSavedAllTime);
+                document.getElementById('totalSavedDisplay').innerText = totalSavedAllTime;
+                updateScoreHUD();
+                floatingTexts.push({ x: b.x, y: b.y - 25, text: '+10 Poin! Alhamdulillah!', color: '#FDE047', life: 55 });
+                pickNextQuestion();
+              } else {
+                playTone('zap');
+                floatingTexts.push({ x: b.x, y: b.y - 25, text: '❌ Kurang Tepat!', color: '#FB7185', life: 45 });
+                // Kembalikan item salah ke dalam air
+                item.caughtBy = null;
+                item.y = canvas.height * 0.65;
+              }
+            }
+          }
+        }
+      });
+
+      // 2. Update Kapsul Jawaban yang Berenang
+      swimmingAnswers.forEach(ans => {
+        if (ans.caughtBy !== null) return;
+        ans.x += ans.vx;
+        if (ans.x < 90 || ans.x > canvas.width - 90) {
+          ans.vx *= -1;
+        }
+      });
+
+      // 3. Update Rintangan Hiu / Pusaran Badai
+      hazards.forEach(h => {
+        h.x += h.vx;
+        if (h.x < 60) { h.x = 60; h.vx *= -1; }
+        if (h.x > canvas.width - 60) { h.x = canvas.width - 60; h.vx *= -1; }
+      });
+
+      // 4. Gelembung Air
+      if (Math.random() < 0.18) {
+        bubbles.push({
+          x: Math.random() * canvas.width,
+          y: canvas.height + 10,
+          r: Math.random() * 5 + 2,
+          vy: Math.random() * 1.4 + 0.6
+        });
+      }
+      bubbles.forEach(bb => bb.y -= bb.vy);
+      bubbles = bubbles.filter(bb => bb.y > canvas.height * 0.27);
+
+      // 5. Floating Score Texts
+      floatingTexts.forEach(ft => { ft.y -= 1.2; ft.life--; });
+      floatingTexts = floatingTexts.filter(ft => ft.life > 0);
+    }
+
+    function renderOceanScene() {
+      const W = canvas.width;
+      const H = canvas.height;
+      const surfaceY = H * 0.26;
+
+      // 1. Langit Cerah Atas
+      const skyGrad = ctx.createLinearGradient(0, 0, 0, surfaceY);
+      skyGrad.addColorStop(0, '#7DD3FC');
+      skyGrad.addColorStop(1, '#E0F2FE');
+      ctx.fillStyle = skyGrad;
+      ctx.fillRect(0, 0, W, surfaceY + 20);
+
+      // 2. Samudra Bawah Air
+      const seaGrad = ctx.createLinearGradient(0, surfaceY, 0, H);
+      seaGrad.addColorStop(0, '#0284C7');
+      seaGrad.addColorStop(0.55, '#0369A1');
+      seaGrad.addColorStop(1, '#082F49');
+      ctx.fillStyle = seaGrad;
+      ctx.fillRect(0, surfaceY, W, H - surfaceY);
+
+      // 3. Efek Bias Sinar Matahari Menembus Air (Volumetric Light Rays Persis Video)
+      ctx.save();
+      for (let i = 0; i < 5; i++) {
+        const rayX = (W * 0.15) + i * (W * 0.18) + Math.sin(waveTick * 0.5 + i) * 20;
+        const rayGrad = ctx.createLinearGradient(rayX, surfaceY, rayX + 90, H);
+        rayGrad.addColorStop(0, 'rgba(255, 255, 255, 0.18)');
+        rayGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        ctx.fillStyle = rayGrad;
+        ctx.beginPath();
+        ctx.moveTo(rayX - 35, surfaceY);
+        ctx.lineTo(rayX + 35, surfaceY);
+        ctx.lineTo(rayX + 140, H);
+        ctx.lineTo(rayX - 90, H);
+        ctx.closePath();
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // 4. Gelombang Permukaan Air
+      ctx.fillStyle = 'rgba(186, 230, 253, 0.45)';
+      ctx.beginPath();
+      ctx.moveTo(0, surfaceY);
+      for (let x = 0; x <= W; x += 40) {
+        ctx.lineTo(x, surfaceY + Math.sin(waveTick + x * 0.015) * 7);
+      }
+      ctx.lineTo(W, surfaceY + 20);
+      ctx.lineTo(0, surfaceY + 20);
+      ctx.closePath();
+      ctx.fill();
+
+      // 5. Gelembung Udara Bawah Laut
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
+      bubbles.forEach(bb => {
+        ctx.beginPath();
+        ctx.arc(bb.x, bb.y, bb.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // 6. Gambar Kapal Bahtera & Tali Jaring Penyelamat
+      boats.forEach(b => {
+        const netTipX = b.x;
+        const netTipY = b.y + b.netLength;
+
+        // Tali Katrol
+        ctx.strokeStyle = b.stunTimer > 0 ? '#EF4444' : '#FEF08A';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(b.x, b.y + 10);
+        ctx.lineTo(netTipX, netTipY);
+        ctx.stroke();
+
+        // Cincin Jaring Penyelamat Emas di Ujung Tali
+        ctx.fillStyle = 'rgba(253, 224, 71, 0.25)';
+        ctx.strokeStyle = '#FDE047';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.arc(netTipX, netTipY, 18, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        // Gambar Bahtera Nabi Nuh di Permukaan
+        drawVectorArk(ctx, b.x, b.y, 0.9, b.color);
+      });
+
+      // 7. Gambar Kapsul/Ikan Jawaban yang Berenang (Persis Label Putih di Video)
+      swimmingAnswers.forEach(ans => {
+        ctx.save();
+        ctx.translate(ans.x, ans.y);
+
+        // Gelembung Cahaya Harta / Ikan Hikmah
+        ctx.fillStyle = ans.color;
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(0, 0, 24, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        // Bintang Kecil di Dalam Gelembung
+        ctx.fillStyle = '#FEF08A';
+        ctx.font = 'bold 18px Fredoka';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('⭐', 0, 1);
+
+        // Papan Label Teks Putih di Atas Objek (Persis Video Mancing Kata)
+        ctx.font = 'bold 15px Fredoka';
+        const textWidth = ctx.measureText(ans.text).width + 24;
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
+        ctx.strokeStyle = '#0284C7';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.roundRect(-textWidth / 2, -48, textWidth, 26, 8);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#0F172A';
+        ctx.fillText(ans.text, 0, -34);
+        ctx.restore();
+      });
+
+      // 8. Gambar Rintangan Hiu / Pusaran Badai Gelap
+      hazards.forEach(h => {
+        ctx.save();
+        ctx.translate(h.x, h.y);
+        // Lingkaran Pusaran Badai Berputar
+        ctx.rotate(waveTick * 2);
+        const grad = ctx.createRadialGradient(0, 0, 5, 0, 0, h.radius);
+        grad.addColorStop(0, '#1E1B4B');
+        grad.addColorStop(0.7, '#4C1D95');
+        grad.addColorStop(1, 'rgba(239, 68, 68, 0.8)');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(0, 0, h.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+
+        // Label Peringatan Kecil
+        ctx.fillStyle = '#FCA5A5';
+        ctx.font = 'bold 12px Fredoka';
+        ctx.textAlign = 'center';
+        ctx.fillText('⚡ AWAS ARUS BADAI', h.x, h.y + h.radius + 14);
+      });
+
+      // 9. Teks Melayang (+10 Poin!)
+      floatingTexts.forEach(ft => {
+        ctx.save();
+        ctx.font = '800 22px "Baloo 2"';
+        ctx.fillStyle = ft.color;
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 4;
+        ctx.textAlign = 'center';
+        ctx.strokeText(ft.text, ft.x, ft.y);
+        ctx.fillText(ft.text, ft.x, ft.y);
+        ctx.restore();
+      });
+    }
+
+    // Ketuk Langsung Sasaran di Dalam Air (Memudahkan Anak Kelas 2 di Layar PID)
+    canvas.addEventListener('pointerdown', (e) => {
+      if (!gameActive || gamePaused || playerCount !== 1) return;
+      const b = boats[0];
+      if (!b) return;
+      b.x = Math.max(80, Math.min(canvas.width - 80, e.clientX));
+      if (b.netState === 'idle') b.netState = 'down';
+    });
+
+    /* =====================================================================
+       7. FUNGSI PAUSE, RESTART, FULLSCREEN, & MODAL MATERI
+       ===================================================================== */
+    function openPauseModal() {
+      gamePaused = true;
+      document.getElementById('pauseModal').classList.remove('hidden');
+    }
+
+    function resumeGame() {
+      gamePaused = false;
+      document.getElementById('pauseModal').classList.add('hidden');
+    }
+
+    function restartCurrentGame() {
+      document.getElementById('pauseModal').classList.add('hidden');
+      launchGameMode(playerCount);
+    }
+
+    function quitToLobby() {
+      gameActive = false;
+      gamePaused = false;
+      if (timerInterval) clearInterval(timerInterval);
+      if (animFrameId) cancelAnimationFrame(animFrameId);
+      document.getElementById('pauseModal').classList.add('hidden');
+      document.getElementById('gameArenaScreen').classList.add('hidden');
+      document.getElementById('lobbyScreen').classList.remove('hidden');
+      drawLobbyPreview();
+    }
+
+    function openStudyModal() {
+      document.getElementById('studyModal').classList.remove('hidden');
+    }
+
+    function closeStudyModal() {
+      document.getElementById('studyModal').classList.add('hidden');
+    }
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
     }
   </script>
 </body>
